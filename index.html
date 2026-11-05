@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yer Menü</title>
+<meta name="description" content="Yer Moda menüsü — kahvaltı, yemek, kahve ve içecekler. Yer Moda menu — breakfast, food, coffee and drinks.">
+<meta name="theme-color" content="#a5e0d7">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}
+
+@font-face{font-family:"Archer";src:url("fonts/archer-book.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("fonts/archer-bookital.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Archer";src:url("fonts/archer-semibold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("fonts/archer-bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("fonts/archer-boldital.woff2") format("woff2");font-weight:700;font-style:italic;font-display:swap}
+/* Layout: a printed menu card turned into one long phone column — colour band header that flips TR/EN like the printed menu, sticky section chips, then sections with the print's italic heading over a double rule. */
+:root{
+  --paper:#fdfdfa;
+  --ink:#232120;
+  --ink-soft:#4a4644;
+  --aqua:#a5e0d7;
+  --aqua-deep:#5fb7ab;
+  --bordo:#70131a;
+  --bordo-soft:#7a1f22;
+  --rule:#232120;
+  --dot:#b9b4ae;
+  --f-slab:"Archer", "Archer Pro", Rockwell, "Roboto Slab", "Zilla Slab", Georgia, serif;
+  color-scheme:light;
+}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-slab);font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* cover band — aqua for Türkçe, bordo for English, like the two printed covers */
+.cover{background:var(--aqua);color:var(--bordo);transition:background-color .35s ease,color .35s ease}
+html[lang="en"] .cover{background:var(--bordo);color:var(--aqua)}
+.cover .wrap{padding-block:18px 34px;display:grid;gap:30px}
+.lang{justify-self:end;display:flex;border:1.5px solid currentColor;border-radius:999px;overflow:hidden}
+.lang button{font:600 13px/1 var(--f-slab);letter-spacing:.08em;color:inherit;background:transparent;border:0;padding:8px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:currentColor}
+.lang button[aria-pressed="true"] span{color:var(--aqua)}
+html[lang="en"] .lang button[aria-pressed="true"] span{color:var(--bordo)}
+.lang button:focus-visible{outline:2px solid currentColor;outline-offset:-5px}
+.mark{margin:0;font-weight:400;font-size:clamp(54px,17vw,96px);line-height:.9;letter-spacing:-.02em;text-align:center}
+.mark b{font-weight:700}
+.where{margin:0;text-align:center;font-size:14px;letter-spacing:.02em;font-style:italic;opacity:.9}
+
+/* section chips */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid #e7e3dc}
+.nav .wrap{padding-left:0;padding-right:0}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px max(20px,env(safe-area-inset-right,0px)) 10px max(20px,env(safe-area-inset-left,0px));scroll-padding-inline:20px}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;text-decoration:none;font-style:italic;font-weight:600;font-size:15px;padding:6px 12px;border-radius:999px;color:var(--ink-soft);white-space:nowrap}
+.chips a.on{background:var(--aqua);color:var(--ink)}
+html[lang="en"] .chips a.on{background:var(--bordo);color:var(--paper)}
+.chips a:focus-visible{outline:2px solid var(--bordo);outline-offset:2px}
+.chips .sep{flex:none;align-self:center;width:1px;height:18px;background:#d9d4cc;margin:0 4px}
+
+/* menu */
+main .wrap{padding-block:12px 40px}
+.sec{padding-top:34px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 62px)}
+.sec h2{margin:0;font-weight:700;font-style:italic;font-size:clamp(27px,7.4vw,34px);line-height:1.1;letter-spacing:-.005em;text-wrap:balance}
+.sec h2 small{font-size:.5em;font-weight:400;letter-spacing:0;margin-left:.35em}
+.sec .by{margin:4px 0 0;font-style:italic;font-size:13px;color:var(--ink-soft)}
+.dbl{height:5px;border-top:1.5px solid var(--rule);border-bottom:1.5px solid var(--rule);margin:8px 0 18px}
+.sub{margin:22px 0 8px;font-style:italic;font-weight:700;font-size:17px}
+.sub:first-of-type{margin-top:4px}
+.sub .chipnote{display:inline-block;font-weight:400;font-size:13px;margin-left:6px;color:var(--ink-soft)}
+ul{list-style:none;margin:0;padding:0}
+.food li{padding:12px 0}
+.food li+li{border-top:1px dotted var(--dot)}
+.nm{margin:0;font-weight:700;font-size:16.5px;line-height:1.25;letter-spacing:.035em;text-transform:uppercase;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.ds{margin:4px 0 0;font-style:italic;font-size:15.5px;line-height:1.45;color:var(--ink-soft);max-width:60ch}
+.ds .add{display:block;margin-top:4px;font-style:normal;font-size:13.5px;color:var(--bordo-soft)}
+.drink li{padding:7px 0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:1px}
+.drink li+li{border-top:1px dotted var(--dot)}
+.drink .dn{font-weight:600;font-size:16px;line-height:1.3}
+.drink .dv{font-style:italic;font-size:14px;color:var(--ink-soft)}
+.note{margin:16px 0 0;font-weight:600;font-size:14px;color:var(--ink-soft)}
+.grp{margin:52px 0 0;display:flex;align-items:center;gap:12px;color:var(--bordo);font-style:italic;font-size:14px;letter-spacing:.04em}
+.grp::before,.grp::after{content:"";flex:1;border-top:1px dotted var(--bordo)}
+
+/* diet marks — drawn after the printed menu's aqua leaves */
+.ic{display:inline-flex;width:20px;height:20px;color:var(--aqua-deep);flex:none}
+.ic svg{width:100%;height:100%}
+.ic.vg{width:28px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding:22px 0 0;border-top:1px dotted var(--dot);font-style:italic;font-size:14px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+footer{background:var(--bordo);color:var(--aqua)}
+footer .wrap{padding-block:30px 36px;display:grid;gap:6px;text-align:center;font-size:14px}
+footer .mark{font-size:40px;margin-bottom:8px}
+footer a{text-decoration:none;border-bottom:1px solid currentColor}
+footer p{margin:0}
+@media (prefers-reduced-motion:reduce){.cover{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="lang" role="group" aria-label="Dil / Language">
+      <button type="button" id="b-tr" data-l="tr" aria-pressed="true"><span>TR</span></button>
+      <button type="button" id="b-en" data-l="en" aria-pressed="false"><span>EN</span></button>
+    </div>
+    <h1 class="mark"><b>yer</b>.<span id="mword">menü</span></h1>
+    <p class="where" id="where">Moda, Kadıköy</p>
+  </div>
+</header>
+<nav class="nav" aria-label="Bölümler"><div class="wrap"><div class="chips" id="chips"></div></div></nav>
+<main><div class="wrap" id="menu"></div></main>
+<footer>
+  <div class="wrap">
+    <p class="mark"><b>yer</b>.</p>
+    <p>Ferit Tek Sok. No:25A, Moda / Kadıköy</p>
+    <p><a href="https://www.instagram.com/yer_moda/" target="_blank" rel="noopener">@yer_moda</a></p>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="leaf" viewBox="0 0 20 20"><path fill="currentColor" d="M4.2 15.6C3 11.2 4.6 6.4 9 4.2c2.6-1.3 5.4-1.4 7.3-1.2.3 2.4-.1 5.6-1.8 8.1-2.4 3.5-6.3 4.9-9.3 4.6l-.9 1.9-.9-.4.8-1.6zm1.6-.5c1.9-2.9 4.1-5.6 7.4-8.1-3.8 1.6-6.4 4.5-7.4 8.1z"/></symbol>
+    <symbol id="gf" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="10" cy="10" r="8.3"/><path d="M10 15.4V6.2"/><path d="M10 13c-1.6-.2-2.6-1.2-2.8-2.6 1.6.1 2.6 1 2.8 2.6zm0 0c1.6-.2 2.6-1.2 2.8-2.6-1.6.1-2.6 1-2.8 2.6zm0-3c-1.4-.2-2.3-1.1-2.5-2.4 1.4.1 2.3 1 2.5 2.4zm0 0c1.4-.2 2.3-1.1 2.5-2.4-1.4.1-2.3 1-2.5 2.4z"/><path d="M4.5 15.5 15.5 4.5"/></g></symbol>
+  </defs>
+</svg>
+
+<script>
+(function(){
+/* v = vejetaryen, vg = vegan, gf = glütensiz — işaretler basılı menüden */
+var FOOD=[
+ {id:"kahvalti",tr:"kahvaltı",en:"breakfast",items:[
+  ["YER KAHVALTI","YER BREAKFAST","ezine peyniri, trakya kaşarı, ayvalık zeytinleri, ezme avokado, köy reçeli ve tereyağı, ev acıkası, peynir soslu taze patates, iki adet pırasalı ve mercimekli börek, iki göz yumurta, kahvaltı salatası","Ezine cheese, Thracian kaşar cheese, Ayvalık olives, mashed avocado, village jam and butter, house acıka, baby potatoes with cheese sauce, two leek and lentil pastries, two fried eggs, breakfast salad","v"],
+  ["KÜÇÜK KAHVALTI","SMALL BREAKFAST","ezine peyniri, trakya kaşarı, ayvalık zeytinleri, köy reçeli, pırasalı ve mercimekli börek, göz yumurta, kahvaltı salatası","Ezine cheese, Thracian kaşar cheese, Ayvalık olives, village jam, leek and lentil pastry, a fried egg, breakfast salad","v"],
+  ["VEGAN KAHVALTI","VEGAN BREAKFAST","taze otlu humus üzerinde baharatlı karamelize mantar, ayvalık zeytinleri, ev acıkası, ezme avokado, köy reçeli, pırasalı ve mercimekli börek, kahvaltı salatası","Spiced caramelized mushrooms on fresh herb hummus, Ayvalık olives, house acıka, mashed avocado, village jam, leek and lentil pastry, breakfast salad","vg"],
+  ["SICAK KAHVALTI","HOT BREAKFAST","trakya kaşarına sarılı ızgara füme antrikot, dana sosis, peynir soslu taze patates, ızgara mantar ve çeri domates, ekşi maya ekmeği üzerinde göz yumurta, acıka sos","Grilled smoked beef ribeye wrapped in Thracian kaşar cheese, beef sausage, baby potatoes with cheese sauce, grilled mushrooms and cherry tomatoes, a fried egg on sourdough bread, acıka sauce",""],
+  ["MANTARLI OMLET","MUSHROOM OMELETTE","biberiye ve kekikli sote mantar, ezine peyniri, fırınlanmış çeri domatesler ve yeşillik","Mushrooms sautéed with rosemary and thyme, Ezine cheese, roasted cherry tomatoes and greens","v gf"],
+  ["BOL OTLU OMLET","HERB OMELETTE","maydanoz, fesleğen ve nane, erzincan tulum peyniri, fırınlanmış çeri domatesler ve yeşillik","Parsley, basil and mint, Erzincan tulum cheese, roasted cherry tomatoes and greens","v gf"],
+  ["KARALAHANA, PAZI ve PATATESLİ YUMURTA","EGGS WITH BLACK KALE, CHARD & POTATOES","karalahana, pazı, pırasa, taze patates ve tereyağlı üç göz yumurta","Three fried eggs with black kale, chard, leek, baby potatoes and butter","v gf"],
+  ["MENEMEN","MENEMEN","taze domates sosunda menemen","Menemen in fresh tomato sauce","v"],
+  ["EKMEK ÜSTÜ AVOKADO POŞE YUMURTA","AVOCADO TOAST WITH POACHED EGGS","kızarmış ekşi maya, avokado dilimleri, ezine kreması, roka, iki poşe yumurta","Toasted sourdough, avocado slices, Ezine cheese cream, rocket, two poached eggs","v"],
+  ["ÇIRPILMIŞ YUMURTA & FÜME ANTRİKOT","SCRAMBLED EGGS & SMOKED BEEF RIBEYE","briyoş, çırpılmış yumurta, füme antrikot, dijon hardalı, ev yapımı soğan turşusu, rende parmesan, frenk soğanı","Brioche, scrambled eggs, smoked beef ribeye, Dijon mustard, house pickled onions, grated Parmesan, chives",""],
+  ["SUCUKLU EKŞİ MAYA TOST","SOURDOUGH TOASTIE WITH SUCUK","tereyağında kızarmış ekşi maya ekmeği, afyon sucuğu, trakya kaşar peyniri, köz biber","Sourdough bread toasted in butter, Afyon sucuk, Thracian kaşar cheese, roasted pepper",""],
+  ["KAHVALTI KASESİ","BREAKFAST BOWL","acıkalı sokak simidi, haşlanmış yumurta, ezine peyniri, bahçe yeşillikleri, domates, salatalık, ceviz, çörek otu","Street style simit with acıka, boiled egg, Ezine cheese, garden greens, tomato, cucumber, walnuts, nigella seeds","v"],
+  ["YUMURTALI EKMEK","FRENCH TOAST","yumurtalı kızarmış briyoş, ezine peyniri, köy reçeli","Egg-soaked fried brioche, Ezine cheese, village jam","v"],
+  ["PANKEK","PANCAKES","taze meyveler, çikolata sosu","Fresh fruit, chocolate sauce","v"]
+ ]},
+ {id:"atistirmalik",tr:"atıştırmalık",en:"starter",items:[
+  ["ÇITIR TAVUK","CRISPY CHICKEN","mısır gevreği kaplı çıtır tavuk, acı-tatlı sos, hardal","Cornflake coated crispy chicken, sweet chilli sauce, mustard",""],
+  ["PAPRİKALI EV PATATESİ","HOMEMADE PAPRIKA FRIES","rende parmesan ve maydanoz","Grated Parmesan, parsley","v gf"],
+  ["ÇITIR KARNABAHAR","CRISPY CAULIFLOWER","kızarmış çıtır karnabahar, limonlu tahin sosu, limon dilimi","Crispy fried cauliflower, lemon tahini sauce, lemon wedge","vg"],
+  ["FIRIN PATATES","BAKED POTATO","ezilmiş fırın patates, cheddar, ev yapımı salatalık turşusu, taze soğan, maydanoz","Smashed baked potato, cheddar, homemade pickles, spring onion, parsley","v gf"],
+  ["IZGARA MERGUEZ SOSİS","GRILLED MERGUEZ SAUSAGE","taze otlu, turşulu ve hardallı ılık patates salatası","Warm potato salad with fresh herbs, pickles and mustard",""],
+  ["TEREYAĞLI SICAK HUMUS","WARM HUMMUS WITH BUTTER","taze otlar, çıtır nohut, kıtır ekşi maya","Fresh herbs, crispy chickpeas, toasted sourdough","v"],
+  ["ÇITIR KARİDES","CRISPY PRAWNS","panko kaplı karidesler, acılı ev mayonezi, lime dilimi","Panko coated prawns, spicy homemade mayonnaise, lime wedge",""],
+  ["IZGARA ENGİNAR","GRILLED ARTICHOKE","erken hasat ayvalık zeytinyağıyla marine edilmiş ızgara enginar kalpleri, ufalanmış erzincan tulum peyniri, çektirilmiş balzamik, dereotu ve limon","Grilled artichoke hearts marinated in early harvest Ayvalık olive oil, crumbled Erzincan tulum cheese, balsamic reduction, dill and lemon","v gf"],
+  ["DANA PÖÇ KROKET","OXTAIL CROQUETTES","tiftik dana pöç kroketleri, yaban turplu ev mayonezi, ev yapımı soğan turşusu","Shredded oxtail croquettes, homemade mayonnaise with horseradish, homemade pickled onions",""],
+  ["2 PEYNİR 1 ROZBİF","TWO CHEESES AND ROAST BEEF","isli abaza, trakya kaşar peyniri, biberli dana nuar rozbif, turşu","Smoked Abaza cheese, Thracian kaşar cheese, peppered eye of round roast beef, pickles","gf"]
+ ]},
+ {id:"makarna",tr:"taze makarna",en:"fresh pasta",items:[
+  ["MANTARLI ve ISPANAKLI TAGLIATELLE","MUSHROOM AND SPINACH TAGLIATELLE","hafif kremalı mantar sosu, ıspanak, tereyağı, karabiber, rende parmesan","Light creamy mushroom sauce, spinach, butter, black pepper, grated Parmesan","v"],
+  ["BOLONEZ TAGLIATELLE","BOLOGNESE TAGLIATELLE","yavaş pişmiş dana bolonez, taze fesleğen, rende parmesan","Slow cooked beef Bolognese, fresh basil, grated Parmesan",""],
+  ["EV YAPIMI DÖRT PEYNİRLİ TORTELLINI","HOMEMADE FOUR CHEESE TORTELLINI","domates sosu, tereyağı, taze fesleğen, rende parmesan","Tomato sauce, butter, fresh basil, grated Parmesan","v"],
+  ["KARİDESLİ TAGLIATELLE","PRAWN TAGLIATELLE","domates sosu, tereyağı, sarımsak, acı biber, limon kabuğu","Tomato sauce, butter, garlic, chilli, lemon zest",""]
+ ]},
+ {id:"kase",tr:"kase / salata",en:"bowl / salad",items:[
+  ["YER KASE","YER BOWL","fırınlanmış pancar, humus, havuç, haşlanmış karabuğday, avokado dilimleri, çıtır nohut, salatalık ve soğan turşusu, yeşillikler, kavrulmuş susam, limonlu tahin sosu","Roasted beetroot, hummus, carrot, cooked buckwheat, avocado slices, crispy chickpeas, pickled cucumber and onion, greens, toasted sesame seeds, lemon tahini sauce","vg",["ilave: fırın somon ve lime-mayo","Add: roasted salmon and lime mayonnaise"]],
+  ["IZGARA TAVUK SALATASI","GRILLED CHICKEN SALAD","ızgara tavuk ve sebzeler, bahçe yeşillikleri, soğan turşusu, limon ve erken hasat ayvalık zeytinyağı","Grilled chicken and vegetables, garden greens, pickled onions, lemon and early harvest Ayvalık olive oil",""],
+  ["IZGARA HELLİM ve ENGİNAR SALATASI","GRILLED HALLOUMI AND ARTICHOKE SALAD","ızgara hellim peyniri, marine bebek enginar, yeşil elma, roka, tere, ıspanak, limon ve erken hasat ayvalık zeytinyağı","Grilled halloumi, marinated baby artichokes, green apple, rocket, cress, spinach, lemon and early harvest Ayvalık olive oil","v"],
+  ["MEVSİM SALATASI","SEASONAL SALAD","karalahana, pancar, ceviz, portakal dilimleri, balzamik sos","Black kale, beetroot, walnuts, orange slices, balsamic dressing","vg"]
+ ]},
+ {id:"burger",tr:"burger / dürüm / sandviç",en:"burger / wrap / sandwich",note:["tüm burger, dürüm ve sandviçler kızarmış patates ve yeşillikle servis edilir","All burgers, wraps and sandwiches are served with fries and greens"],items:[
+  ["YER BURGER","YER BURGER","yer yapımı burger ekmeği, 160 g köfte, füme antrikot, ev yapımı salatalık turşusu, soğan chutney, marul, ev mayonezi","Yer’s homemade burger bun, 160 g beef patty, smoked beef ribeye, homemade pickles, onion chutney, lettuce, homemade mayonnaise",""],
+  ["CHEESEBURGER","CHEESEBURGER","yer yapımı burger ekmeği, 160 g köfte, cheddar peyniri, ev yapımı salatalık ve soğan turşusu, marul, ev mayonezi","Yer’s homemade burger bun, 160 g beef patty, cheddar, homemade pickled cucumber and onions, lettuce, homemade mayonnaise",""],
+  ["VEJETARYEN BURGER","VEGETARIAN BURGER","yer yapımı burger ekmeği, panelenmiş kinoa ve sebze köftesi, ezme avokado, ev yapımı salatalık ve soğan turşusu, marul, acılı ev mayonezi","Yer’s homemade burger bun, breaded quinoa and vegetable patty, mashed avocado, homemade pickled cucumber and onions, lettuce, spicy homemade mayonnaise","v"],
+  ["TAVUK BURGER","CHICKEN BURGER","yer yapımı burger ekmeği, 180 g panelenmiş tavuk, cheddar peyniri, ev yapımı salatalık turşusu, marul, acılı ev mayonezi","Yer’s homemade burger bun, 180 g breaded chicken, cheddar, homemade pickles, lettuce, spicy homemade mayonnaise",""],
+  ["YER DÜRÜM","YER WRAP","humus, sote ıspanak, mantar, pırasa","Hummus, sautéed spinach, mushrooms, leek","vg"],
+  ["ROZBİF SANDVİÇ","ROAST BEEF SANDWICH","çapata ekmeği, biberli dana nuar rozbif, isli abaza, yaban turplu ev mayonezi, roka, ev yapımı soğan turşusu","Ciabatta, peppered roast beef, smoked Abaza cheese, homemade horseradish mayonnaise, rocket, homemade pickled onions",""]
+ ]},
+ {id:"yemek",tr:"yemek",en:"main",items:[
+  ["TAVUK ŞİNİTZEL","CHICKEN SCHNITZEL","lime kabuğu, parmesan ve ekmek kırıntısıyla panelenmiş 280 g tavuk şinitzel, taze otlu, turşulu ve hardallı ılık patates salatası, limon dilimi, tereyağı","280 g chicken schnitzel breaded with lime zest, Parmesan and breadcrumbs, warm potato salad with fresh herbs, pickles and mustard, lemon wedge, butter",""],
+  ["IZGARA KÖFTE","GRILLED MEATBALLS","200 g ev köftesi, patates püresi, köz biber, sumaklı ve maydanozlu mor soğan, acılı köfte sosu","200 g homemade beef meatballs, mashed potatoes, roasted pepper, red onion with sumac and parsley, spicy meatball sauce",""],
+  ["IZGARA TAVUK","GRILLED CHICKEN","limonlu tereyağı sosuyla 280 g ızgara tavuk fileto, ızgara avokado, bol otlu basmati pilavı, soğan ve salatalık turşusu, lime dilimi","280 g grilled chicken fillet with lemon butter sauce, grilled avocado, basmati rice with plenty of herbs, pickled onions and cucumber, lime wedge","gf"],
+  ["FIRIN SOMON","BAKED SALMON","fırınlanmış 200 g somon fileto, köz sarımsaklı patates püresi, ızgara brokoli, ev yapımı soğan ve salatalık turşusu, limon dilimi","200 g baked salmon fillet, mashed potatoes with roasted garlic, grilled broccoli, homemade pickled onions and cucumber, lemon wedge","gf"],
+  ["DANA KABURGA","BEEF SHORT RIB","9 saat yavaş pişmiş tiftik dana kaburga, köz sarımsaklı patates püresi, kaburga sosu, soğan turşusu","Shredded beef short rib slow cooked for 9 hours, mashed potatoes with roasted garlic, short rib sauce, pickled onions","gf"],
+  ["KEKİKLİ TAVUK TAVA","CHICKEN WITH FRESH THYME","tereyağında kavrulmuş 250 g tavuk but lokmaları, basmati pilavı, renkli biber ve çeri domates, taze kekik, yeşil soğan","250 g bite sized chicken thigh pieces cooked in butter, basmati rice, mixed peppers and cherry tomatoes, fresh thyme, spring onions","gf"],
+  ["ACILI KARNABAHAR","SPICY CAULIFLOWER","baharatlarla fırınlanmış karnabahar, humus kreması, karamelize pırasa, kavrulmuş badem, maydanoz, acı yağ","Cauliflower roasted with spices, creamy hummus, caramelized leek, toasted almonds, parsley, chilli oil","vg gf"]
+ ]}
+];
+/* içecekler: [ad TR, ad EN, not TR, not EN] */
+var DRINK=[
+ {id:"kahve",tr:"kahveler",en:"coffees",by:["YER x Petra Roasting","YER x Petra Roasting"],subs:[
+  {tr:"sıcak",en:"hot",items:[["Espresso"],["Double espresso"],["Macchiato"],["Filtre kahve","Filter coffee"],["Americano"],["Cortado"],["Flat white"],["Cappuccino"],["Latte"],["Türk kahvesi","Turkish coffee"]]},
+  {tr:"soğuk",en:"cold",items:[["Iced americano"],["Iced latte"],["Cold brew"]]}
+ ]},
+ {id:"cay",tr:"çaylar",en:"teas",subs:[{items:[
+  ["Demleme çay","Brewed tea","küçük / büyük","small / large"],
+  ["Taze zencefil çayı","Fresh ginger tea","limon ve bal ile","with lemon and honey"],
+  ["Kış çayı / Yaseminli yeşil çay","Winter tea / Jasmine green tea"]
+ ]}]},
+ {id:"alkolsuz",tr:"alkolsüz içecekler",en:"non-alcoholic drinks",subs:[{items:[
+  ["Ev yapımı limonata","Homemade lemonade"],["Zencefilli limonata","Ginger lemonade"],["Taze portakal suyu","Fresh orange juice"],["Ev yapımı iced tea","Homemade iced tea"],
+  ["Kola","Cola","33 cl · Coca-Cola / Coca-Cola Zero","33 cl · Coca-Cola / Coca-Cola Zero"],["Özerhisar ayran"],["Uludağ Premium Soda"],["San Pellegrino"],
+  ["Kombucha 2200","Kombucha 2200","sade / lime-nane","plain / lime-mint"],["Peja","Peja","alkolsüz bira","non-alcoholic beer"],["Kestane su","Kestane water"]
+ ]}]},
+ {id:"bira",tr:"biralar",en:"beers",unit:"33 cl",subs:[{items:[
+  ["Tuborg Gold / Ice"],["Tuborg Filtresiz","Tuborg Unfiltered","50 cl","50 cl"],["Carlsberg"],["1664 Blanc"],["Weihenstephaner"],["Frederik Pale Ale / Yakima IPA"],["Guinness","Guinness","44 cl","44 cl"],["Asante Cold IPA / West Coast IPA"],["Peja","Peja","alkolsüz bira","non-alcoholic beer"]
+ ]}]},
+ {id:"alkollu",tr:"alkollü içecekler",en:"spirits",unit:"5 cl",subs:[{items:[
+  ["Absolut votka","Absolut vodka"],["Absolut Elyx"],["Beefeater cin","Beefeater gin"],["Malfy cin","Malfy gin"],["Monkey 47 cin","Monkey 47 gin"],
+  ["Olmeca tekila / Altos Plata","Olmeca tequila / Altos Plata","shot 2,5 cl","shot 2.5 cl"],
+  ["Bumbu rom","Bumbu rum","shot 2,5 cl / kadeh 5 cl","shot 2.5 cl / glass 5 cl"],
+  ["Jägermeister","Jägermeister","shot 2,5 cl / kadeh 5 cl","shot 2.5 cl / glass 5 cl"],
+  ["Baker’s Field"],["Havana Club 3 Year rom","Havana Club 3 Year rum"],
+  ["Garrone vermut","Garrone vermouth","dry / bianco / rosso","dry / bianco / rosso"],["Martell kanyak","Martell cognac"],
+  ["Kulüp Rakı Delüks","Kulüp Rakı Delüks","tek / duble (4 cl / 8 cl)","single / double (4 cl / 8 cl)"]
+ ]}]},
+ {id:"viski",tr:"viskiler",en:"whiskies",unit:"5 cl",subs:[{items:[
+  ["Jameson"],["Jameson Caskmates / IPA"],["Jameson Black Barrel"],["Chivas Regal 12 Year"],["Chivas Regal Mizunara"],["Glenlivet Founder’s Reserve"],["Glenlivet 12 Year"],["Aberlour 12 Year"],["Ballantine’s 7 Bourbon Finish"],["Ballantine’s 10 Year"],["Redbreast 12 Year"]
+ ]}]},
+ {id:"sarap",tr:"şaraplar",en:"wines",subs:[
+  {tr:"kadeh",en:"glass",unit:"15 cl",items:[
+   ["Ancyra Cabernet Sauvignon – Syrah","Ancyra Cabernet Sauvignon – Syrah","kırmızı","red"],["Ancyra Sauvignon Blanc","Ancyra Sauvignon Blanc","beyaz","white"],
+   ["Porta Caeli Diverti","Porta Caeli Diverti","kırmızı / beyaz / rose","red / white / rosé"],["Cinzano Prosecco","Cinzano Prosecco","İtalya","Italy"]]},
+  {tr:"şişe / kırmızı",en:"bottle / red",unit:"75 cl",items:[["Ancyra Cabernet Sauvignon – Syrah"],["Porta Caeli Diverti"],["İsabey Cabernet Sauvignon – Merlot"],["7 Bilgeler Hippokrates"]]},
+  {tr:"şişe / beyaz",en:"bottle / white",unit:"75 cl",items:[["Ancyra Sauvignon Blanc"],["Porta Caeli Diverti"],["Sevilen Colombard Semillon"],["7 Bilgeler Anaxagoras Chardonnay"]]},
+  {tr:"şişe / rose",en:"bottle / rosé",unit:"75 cl",items:[["Porta Caeli Diverti"],["İsabey Kalecik Karası"],["Cinzano Prosecco","Cinzano Prosecco","İtalya","Italy"]]}
+ ]}
+];
+var UI={
+ tr:{word:"menü",where:"Moda, Kadıköy",eat:"yemek",drink:"içecek",v:"vejetaryen",vg:"vegan",gf:"glütensiz",nav:"Bölümler"},
+ en:{word:"menu",where:"Moda, Kadıköy · Istanbul",eat:"food",drink:"drinks",v:"vegetarian",vg:"vegan",gf:"gluten free",nav:"Sections"}
+};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function icon(k,L){
+ var t=UI[L][k];
+ if(k==="v")return '<span class="ic" role="img" aria-label="'+t+'" title="'+t+'"><svg><use href="#leaf"/></svg></span>';
+ if(k==="vg")return '<span class="ic vg" role="img" aria-label="'+t+'" title="'+t+'"><svg viewBox="0 0 28 20"><use href="#leaf" width="18" height="18" y="2" transform="rotate(-18 9 11)"/><use href="#leaf" x="10" width="18" height="18" y="1"/></svg></span>';
+ return '<span class="ic" role="img" aria-label="'+t+'" title="'+t+'"><svg><use href="#gf"/></svg></span>';
+}
+function render(L){
+ var i=L==="tr"?0:1, h=[], chips=[];
+ FOOD.forEach(function(s,si){
+  chips.push('<a href="#s-'+s.id+'" data-s="s-'+s.id+'">'+esc(s[L])+'</a>');
+  h.push('<section class="sec" id="s-'+s.id+'"><h2>'+esc(s[L])+'</h2><div class="dbl"></div><ul class="food">');
+  s.items.forEach(function(it){
+   var marks=(it[4]||"").split(" ").filter(Boolean).map(function(k){return icon(k,L)}).join("");
+   var add=it[5]?'<span class="add">'+esc(it[5][i])+'</span>':"";
+   h.push('<li><p class="nm">'+esc(it[i])+marks+'</p><p class="ds">'+esc(it[2+i])+add+'</p></li>');
+  });
+  h.push('</ul>'+(s.note?'<p class="note">('+esc(s.note[i])+')</p>':'')+'</section>');
+ });
+ h.push('<p class="legend">'+["v","vg","gf"].map(function(k){return '<span>'+icon(k,L)+UI[L][k]+'</span>'}).join("")+'</p>');
+ h.push('<p class="grp">'+UI[L].drink+'</p>');
+ chips.push('<span class="sep" aria-hidden="true"></span>');
+ DRINK.forEach(function(s){
+  chips.push('<a href="#s-'+s.id+'" data-s="s-'+s.id+'">'+esc(s[L])+'</a>');
+  h.push('<section class="sec" id="s-'+s.id+'"><h2>'+esc(s[L])+(s.unit?'<small>'+s.unit+'</small>':'')+'</h2>'+(s.by?'<p class="by">'+esc(s.by[i])+'</p>':'')+'<div class="dbl"></div>');
+  s.subs.forEach(function(sub){
+   if(sub.tr)h.push('<p class="sub">'+esc(sub[L])+(sub.unit?'<span class="chipnote">'+sub.unit+'</span>':'')+'</p>');
+   h.push('<ul class="drink">');
+   sub.items.forEach(function(d){
+    var n=d[i]||d[0], v=d[2+i]||d[2];
+    h.push('<li><span class="dn">'+esc(n)+'</span>'+(v?'<span class="dv">'+esc(v)+'</span>':'')+'</li>');
+   });
+   h.push('</ul>');
+  });
+  h.push('</section>');
+ });
+ document.getElementById("menu").innerHTML=h.join("");
+ document.getElementById("chips").innerHTML=chips.join("");
+ document.getElementById("mword").textContent=UI[L].word;
+ document.getElementById("where").textContent=UI[L].where;
+ document.querySelector(".nav").setAttribute("aria-label",UI[L].nav);
+ document.documentElement.lang=L;
+ document.title=L==="tr"?"Yer Menü":"Yer Menu";
+ ["tr","en"].forEach(function(x){document.getElementById("b-"+x).setAttribute("aria-pressed",x===L?"true":"false")});
+ watch();
+}
+var obs;
+function watch(){
+ if(obs)obs.disconnect();
+ if(!("IntersectionObserver" in window))return;
+ obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   if(!e.isIntersecting)return;
+   var id=e.target.id;
+   document.querySelectorAll("#chips a").forEach(function(a){
+    var on=a.getAttribute("data-s")===id; a.classList.toggle("on",on);
+    if(on){var c=document.getElementById("chips");var l=a.offsetLeft-c.offsetWidth/2+a.offsetWidth/2;c.scrollTo({left:l,behavior:"smooth"})}
+   });
+  });
+ },{rootMargin:"-70px 0px -70% 0px"});
+ document.querySelectorAll(".sec").forEach(function(s){obs.observe(s)});
+}
+document.getElementById("chips").addEventListener("click",function(e){
+ var a=e.target.closest("a"); if(!a)return; e.preventDefault();
+ var t=document.getElementById(a.getAttribute("data-s")); if(t)t.scrollIntoView({block:"start"});
+});
+function pick(){return (location.hash||"").toLowerCase()==="#en"?"en":"tr"}
+document.querySelectorAll(".lang button").forEach(function(b){
+ b.addEventListener("click",function(){
+  var L=b.getAttribute("data-l");
+  if(pick()!==L){ try{history.replaceState(null,"",L==="en"?"#en":location.pathname+location.search)}catch(e){location.hash=L==="en"?"en":""} }
+  render(L); window.scrollTo(0,0);
+ });
+});
+window.addEventListener("hashchange",function(){var h=(location.hash||"").toLowerCase();if(h==="#en"||h===""||h==="#tr")render(pick())});
+render(pick());
+})();
+</script>
+
+</body>
+</html>
