@@ -54,6 +54,22 @@ main .wrap{padding-block:30px 44px}
 .more a{text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.04em;border:1.5px solid var(--bordo);color:var(--bordo);border-radius:999px;padding:11px 20px}
 .more a:hover{background:var(--bordo);color:var(--paper)}
 .more a:focus-visible{outline:2px solid var(--bordo);outline-offset:3px}
+.past{margin-top:46px}
+.past h2{margin:0;text-align:center;font-weight:700;font-style:italic;font-size:24px}
+.past .dbl{height:5px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);margin:10px 0 6px}
+.past details{border-bottom:1px dotted var(--dot)}
+.past summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 2px;font-weight:600;font-size:17px}
+.past summary::-webkit-details-marker{display:none}
+.past summary span{font-weight:400;font-style:italic;font-size:14px;color:var(--ink-soft);white-space:nowrap}
+.past summary::after{content:"+";font-weight:400;font-size:20px;color:var(--bordo);margin-left:auto;padding-left:8px}
+.past details[open] summary::after{content:"–"}
+.past summary:focus-visible{outline:2px solid var(--bordo);outline-offset:2px}
+.past .body{padding:0 0 18px}
+.past .grp{padding:12px 0;gap:8px}
+.past .grp:first-child{padding-top:0}
+.past .dish{font-size:17px}
+.past .sub{font-size:15px}
+.past .note{font-size:14px}
 footer{background:var(--bordo);color:var(--aqua)}
 footer .wrap{padding-block:22px 26px;text-align:center;font-size:14px;display:grid;gap:4px}
 footer p{margin:0}
@@ -77,51 +93,62 @@ footer a{text-decoration:none;border-bottom:1px solid currentColor}
     </div>
   </div>
 </header>
-<main><div class="wrap"><div id="list"></div><div class="more"><a id="more" href="../">Tüm menü</a></div></div></main>
+<main><div class="wrap"><div id="list"></div><div class="more"><a id="more" href="../">Tüm menü</a></div><section class="past" id="past" hidden></section></div></main>
 <footer><div class="wrap"><p>Ferit Tek Sok. No:25A, Moda / Kadıköy</p><p><a href="https://www.instagram.com/yer_moda/" target="_blank" rel="noopener">@yer_moda</a></p></div></footer>
 <script>
 (function(){
 var TZ="Europe/Istanbul", data=null, failed=false;
 var UI={
- tr:{eye:"Bugünün menüsü",more:"Tüm menü",loc:"tr-TR",
+ tr:{eye:"Bugünün menüsü",more:"Tüm menü",loc:"tr-TR",past:"Geçmiş günler",n:"tabak",
      wait:"Bugünün tabakları birazdan burada.",wait2:"Mutfak hazırlanırken tüm menümüze göz atabilirsiniz.",
      err:"Menü şu an yüklenemedi.",err2:"Biraz sonra yeniden deneyin."},
- en:{eye:"Today's menu",more:"Full menu",loc:"en-GB",
+ en:{eye:"Today's menu",more:"Full menu",loc:"en-GB",past:"Previous days",n:"dishes",
      wait:"Today's dishes will be here shortly.",wait2:"In the meantime, have a look at our full menu.",
      err:"The menu couldn't load right now.",err2:"Please try again in a moment."}
 };
 function today(){
- var p=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
- var o={};p.forEach(function(x){o[x.type]=x.value});return o.year+"-"+o.month+"-"+o.day;
+ var o={};new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});
+ return o.year+"-"+o.month+"-"+o.day;
 }
 function dayName(iso,L){
  var d=new Date(iso+"T12:00:00+03:00");
- var o={timeZone:TZ};
  var w=new Intl.DateTimeFormat(UI[L].loc,{timeZone:TZ,weekday:"long"}).format(d);
  var dm=new Intl.DateTimeFormat(UI[L].loc,{timeZone:TZ,day:"numeric",month:"long"}).format(d);
  return w+", "+dm;
 }
 function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function groupsHTML(day,L){
+ var h="";
+ day.groups.forEach(function(g){
+  h+='<ul class="grp">'+g.map(function(it){
+   var n=it[L]||it.tr, s=it["sub_"+L]||it.sub_tr;
+   return '<li class="dish">'+esc(n)+(s?'<span class="sub">'+esc(s)+'</span>':'')+'</li>';
+  }).join("")+'</ul>';
+ });
+ var note=day["note_"+L]||day.note_tr; if(note)h+='<p class="note">'+esc(note)+'</p>';
+ return h;
+}
 function render(L){
  var u=UI[L], t=today(), h="";
  document.documentElement.lang=L;
  document.getElementById("eyebrow").textContent=u.eye;
  document.getElementById("more").textContent=u.more;
  document.getElementById("day").textContent=dayName(t,L);
- if(data&&data.date===t){
-  data.groups.forEach(function(g){
-   h+='<ul class="grp">'+g.map(function(it){
-    var n=it[L]||it.tr, s=it["sub_"+L]||it.sub_tr;
-    return '<li class="dish">'+esc(n)+(s?'<span class="sub">'+esc(s)+'</span>':'')+'</li>';
-   }).join("")+'</ul>';
-  });
-  var note=data["note_"+L]||data.note_tr; if(note)h+='<p class="note">'+esc(note)+'</p>';
- }else if(failed){
-  h='<div class="empty"><p>'+u.err+'</p><p>'+u.err2+'</p></div>';
- }else if(data){
-  h='<div class="empty"><p>'+u.wait+'</p><p>'+u.wait2+'</p></div>';
- }
+ var td=data&&data.days.filter(function(x){return x.date===t})[0];
+ if(td) h=groupsHTML(td,L);
+ else if(failed) h='<div class="empty"><p>'+u.err+'</p><p>'+u.err2+'</p></div>';
+ else if(data) h='<div class="empty"><p>'+u.wait+'</p><p>'+u.wait2+'</p></div>';
  document.getElementById("list").innerHTML=h;
+ var past=document.getElementById("past");
+ if(data){
+  var open={};past.querySelectorAll("details[open]").forEach(function(x){open[x.getAttribute("data-d")]=1});
+  var prev=data.days.filter(function(x){return x.date<t}).sort(function(a,b){return a.date<b.date?1:-1});
+  past.innerHTML=prev.length?'<h2>'+u.past+'</h2><div class="dbl"></div>'+prev.map(function(x){
+   var c=x.groups.reduce(function(a,g){return a+g.length},0);
+   return '<details data-d="'+x.date+'"'+(open[x.date]?' open':'')+'><summary>'+esc(dayName(x.date,L))+'<span>'+c+' '+u.n+'</span></summary><div class="body">'+groupsHTML(x,L)+'</div></details>';
+  }).join(""):"";
+  past.hidden=!prev.length;
+ }
  document.getElementById("more").setAttribute("href","../"+(L==="en"?"#en":""));
  ["tr","en"].forEach(function(x){document.getElementById("b-"+x).setAttribute("aria-pressed",x===L?"true":"false")});
 }
@@ -133,7 +160,7 @@ document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener
 })});
 window.addEventListener("hashchange",function(){render(pick())});
 render(pick());
-fetch("../bugun.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})
+fetch("../menuler.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})
  .then(function(j){data=j;render(pick())})
  .catch(function(){failed=true;render(pick())});
 })();

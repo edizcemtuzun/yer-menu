@@ -1,0 +1,352 @@
+{
+ "days": [
+  {
+   "date": "2026-11-12",
+   "groups": [
+    [
+     {
+      "tr": "Bakliyatlı Yayla Çorbası",
+      "en": "Yayla Soup with Pulses"
+     }
+    ],
+    [
+     {
+      "tr": "Orman Kebabı",
+      "en": "Orman Kebab (Meat & Vegetable Stew)",
+      "sub_tr": "Pirinç Pilavı",
+      "sub_en": "Rice Pilaf"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Portakallı Kereviz",
+      "en": "Celeriac with Orange in Olive Oil"
+     },
+     {
+      "tr": "Bademli Pancar Yoğurtlama",
+      "en": "Beetroot in Yoghurt with Almonds"
+     },
+     {
+      "tr": "Enginarlı Brokoli Salata",
+      "en": "Broccoli Salad with Artichoke"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "groups": [
+    [
+     {
+      "tr": "Tarhana Çorbası",
+      "en": "Tarhana Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Sebzeli Fırın Tavuk Baget",
+      "en": "Oven-Roasted Chicken Drumsticks with Vegetables",
+      "sub_tr": "Arpa Şehriye Pilavı",
+      "sub_en": "Orzo Pilaf"
+     }
+    ],
+    [
+     {
+      "tr": "Pancar Yoğurtlama",
+      "en": "Beetroot in Yoghurt"
+     },
+     {
+      "tr": "Narlı Brokoli Salatası",
+      "en": "Broccoli Salad with Pomegranate"
+     },
+     {
+      "tr": "Portakallı Kereviz",
+      "en": "Celeriac with Orange"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "groups": [
+    [
+     {
+      "tr": "Sebzeli Tavuk Çorbası",
+      "en": "Chicken & Vegetable Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Güveçte Etli Kuru Fasulye",
+      "en": "Clay-Pot White Beans with Meat",
+      "sub_tr": "Şehriyeli Pirinç Pilavı, Turşu",
+      "sub_en": "Rice Pilaf with Vermicelli, Pickles"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Brüksel Lahanası Yoğurtlama",
+      "en": "Brussels Sprouts in Yoghurt"
+     },
+     {
+      "tr": "Mercimek Köftesi",
+      "en": "Lentil Köfte"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "groups": [
+    [
+     {
+      "tr": "Domates Çorbası",
+      "en": "Tomato Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Kıymalı Ispanak",
+      "en": "Spinach with Minced Meat",
+      "sub_tr": "Cevizli ve Tulum Peynirli Erişte",
+      "sub_en": "Erişte Noodles with Walnuts & Tulum Cheese"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Mercimek Köftesi",
+      "en": "Lentil Köfte"
+     },
+     {
+      "tr": "Fırınlanmış Pırasa",
+      "en": "Roasted Leeks"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "groups": [
+    [
+     {
+      "tr": "Domates Çorbası",
+      "en": "Tomato Soup"
+     },
+     {
+      "tr": "Kremalı Brokoli Çorbası",
+      "en": "Cream of Broccoli Soup"
+     },
+     {
+      "tr": "Limonlu Tavuk Çorbası",
+      "en": "Lemon Chicken Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Etli Yaprak Sarma",
+      "en": "Stuffed Vine Leaves with Meat",
+      "sub_tr": "Tereyağlı Makarna, Yoğurt",
+      "sub_en": "Buttered Pasta, Yoghurt"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Fırınlanmış Sebzeli Pırasa",
+      "en": "Roasted Leeks with Vegetables"
+     },
+     {
+      "tr": "Mercimek Köftesi",
+      "en": "Lentil Köfte"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "groups": [
+    [
+     {
+      "tr": "Kremalı Brokoli Çorbası",
+      "en": "Cream of Broccoli Soup"
+     },
+     {
+      "tr": "Limonlu Tavuk Çorbası",
+      "en": "Lemon Chicken Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Güveçte Etli Kereviz",
+      "en": "Clay-Pot Celeriac with Meat",
+      "sub_tr": "Şehriyeli Bulgur Pilavı",
+      "sub_en": "Bulgur Pilaf with Vermicelli"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Fırınlanmış Sebzeli Pırasa",
+      "en": "Roasted Leeks with Vegetables"
+     },
+     {
+      "tr": "Mercimek Köftesi",
+      "en": "Lentil Köfte"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "groups": [
+    [
+     {
+      "tr": "Karabuğdaylı Mantar Çorbası",
+      "en": "Mushroom & Buckwheat Soup"
+     },
+     {
+      "tr": "Zerdeçallı Pancar Çorbası",
+      "en": "Beetroot Soup with Turmeric"
+     }
+    ],
+    [
+     {
+      "tr": "Baharatlı Fırın Tavuk Kalça But",
+      "en": "Spiced Roast Chicken Thigh",
+      "sub_tr": "Mantarlı Arpa Şehriye Pilavı",
+      "sub_en": "Orzo Pilaf with Mushrooms"
+     },
+     {
+      "tr": "Kapari ve Enginarlı Tagliatelle",
+      "en": "Tagliatelle with Capers & Artichoke"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Portakallı Kereviz",
+      "en": "Celeriac with Orange"
+     },
+     {
+      "tr": "Narlı Brokoli Salata",
+      "en": "Broccoli Salad with Pomegranate"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "groups": [
+    [
+     {
+      "tr": "Tiftik Etli Mercimek Çorbası",
+      "en": "Lentil Soup with Pulled Meat"
+     },
+     {
+      "tr": "Urla Köy Tarhanası",
+      "en": "Urla Village Tarhana"
+     },
+     {
+      "tr": "Karabuğdaylı Mantar Çorbası",
+      "en": "Mushroom & Buckwheat Soup"
+     }
+    ],
+    [
+     {
+      "tr": "Etli Çökertme Kebabı",
+      "en": "Çökertme Kebab"
+     },
+     {
+      "tr": "Rosto Köfte, Patates Püresi ve Yeşil Salata",
+      "en": "Roast Köfte, Mashed Potatoes & Green Salad"
+     },
+     {
+      "tr": "Füme Picanha Tagliatelle",
+      "en": "Smoked Picanha Tagliatelle"
+     }
+    ],
+    [
+     {
+      "tr": "Portakallı Kereviz",
+      "en": "Celeriac with Orange"
+     },
+     {
+      "tr": "Pancar Tarator",
+      "en": "Beetroot Tarator"
+     },
+     {
+      "tr": "Narlı Brokoli",
+      "en": "Broccoli with Pomegranate"
+     }
+    ],
+    [
+     {
+      "tr": "Profiterol",
+      "en": "Profiteroles"
+     }
+    ]
+   ],
+   "note_tr": "Hepsi tek tabakta",
+   "note_en": "All on one plate"
+  }
+ ]
+}

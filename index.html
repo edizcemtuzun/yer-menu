@@ -327,8 +327,8 @@ function upd(){if(!ok)return;var en=document.documentElement.lang==="en";
  document.getElementById("today-t").textContent=en?"Today's menu":"Bugünün menüsü";
  document.getElementById("today-d").textContent=new Intl.DateTimeFormat(en?"en-GB":"tr-TR",{timeZone:TZ,day:"numeric",month:"long"}).format(new Date());
  document.getElementById("today-a").setAttribute("href","bugun/"+(en?"#en":""));}
-fetch("bugun.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
- if(j.date===today()){ok=true;document.getElementById("today").hidden=false;upd()}}).catch(function(){});
+fetch("menuler.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+ if(j.days.some(function(x){return x.date===today()})){ok=true;document.getElementById("today").hidden=false;upd()}}).catch(function(){});
 new MutationObserver(upd).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
 })();
 </script>
