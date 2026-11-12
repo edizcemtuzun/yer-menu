@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yer · Bugünün Menüsü</title>
+<meta name="description" content="Yer Moda'da bugün mutfakta ne var. Today's dishes at Yer Moda.">
+<meta name="theme-color" content="#a5e0d7">
+<link rel="preload" href="../fonts/archer-book.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Archer";src:url("../fonts/archer-book.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("../fonts/archer-bookital.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Archer";src:url("../fonts/archer-semibold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("../fonts/archer-bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Archer";src:url("../fonts/archer-boldital.woff2") format("woff2");font-weight:700;font-style:italic;font-display:swap}
+/* Layout: the daily chalkboard as a phone card — aqua cover with the date, then the day's plates centred in groups, like the story video. */
+:root{
+  --paper:#fdfdfa; --ink:#232120; --ink-soft:#4a4644;
+  --aqua:#a5e0d7; --bordo:#70131a; --dot:#b9b4ae;
+  --f:"Archer",Rockwell,"Roboto Slab",Georgia,serif;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html,body{background:var(--paper)}
+body{margin:0;color:var(--ink);font-family:var(--f);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.cover{background:var(--aqua);color:var(--bordo);transition:background-color .35s,color .35s}
+html[lang="en"] .cover{background:var(--bordo);color:var(--aqua)}
+.cover .wrap{padding-block:18px 30px;display:grid;gap:22px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.mk{font-size:30px;line-height:1;text-decoration:none;letter-spacing:-.02em}
+.mk b{font-weight:700}
+.lang{display:flex;border:1.5px solid currentColor;border-radius:999px;overflow:hidden}
+.lang button{font:600 13px/1 var(--f);letter-spacing:.08em;color:inherit;background:transparent;border:0;padding:8px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:currentColor}
+.lang button[aria-pressed="true"] span{color:var(--aqua)}
+html[lang="en"] .lang button[aria-pressed="true"] span{color:var(--bordo)}
+.lang button:focus-visible{outline:2px solid currentColor;outline-offset:-5px}
+.eyebrow{margin:0;text-align:center;font-weight:600;font-size:13px;letter-spacing:.28em;text-transform:uppercase}
+.day{margin:6px 0 0;text-align:center;font-weight:700;font-style:italic;font-size:clamp(34px,10vw,46px);line-height:1.05;text-wrap:balance}
+main{flex:1}
+main .wrap{padding-block:30px 44px}
+.grp{list-style:none;margin:0;padding:22px 0;text-align:center;display:grid;gap:14px}
+.grp+.grp{border-top:1px dotted var(--dot)}
+.grp:first-child{padding-top:0}
+.dish{font-weight:600;font-size:21px;line-height:1.3;text-wrap:balance}
+.sub{display:block;margin-top:2px;font-weight:400;font-style:italic;font-size:17px;color:var(--ink-soft)}
+.note{margin:6px 0 0;text-align:center;font-style:italic;font-size:16px;color:var(--ink-soft)}
+.empty{text-align:center;padding:10px 0 0}
+.empty p{margin:0 auto;max-width:30ch;font-size:19px;line-height:1.45}
+.empty p+p{margin-top:10px;font-style:italic;font-size:16px;color:var(--ink-soft)}
+.more{display:flex;justify-content:center;margin-top:30px}
+.more a{text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.04em;border:1.5px solid var(--bordo);color:var(--bordo);border-radius:999px;padding:11px 20px}
+.more a:hover{background:var(--bordo);color:var(--paper)}
+.more a:focus-visible{outline:2px solid var(--bordo);outline-offset:3px}
+footer{background:var(--bordo);color:var(--aqua)}
+footer .wrap{padding-block:22px 26px;text-align:center;font-size:14px;display:grid;gap:4px}
+footer p{margin:0}
+footer a{text-decoration:none;border-bottom:1px solid currentColor}
+@media (prefers-reduced-motion:reduce){.cover{transition:none}}
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="wrap">
+    <div class="top">
+      <a class="mk" href="../" aria-label="Yer menü"><b>yer</b>.</a>
+      <div class="lang" role="group" aria-label="Dil / Language">
+        <button type="button" id="b-tr" data-l="tr" aria-pressed="true"><span>TR</span></button>
+        <button type="button" id="b-en" data-l="en" aria-pressed="false"><span>EN</span></button>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow" id="eyebrow">Bugünün menüsü</p>
+      <h1 class="day" id="day">&nbsp;</h1>
+    </div>
+  </div>
+</header>
+<main><div class="wrap"><div id="list"></div><div class="more"><a id="more" href="../">Tüm menü</a></div></div></main>
+<footer><div class="wrap"><p>Ferit Tek Sok. No:25A, Moda / Kadıköy</p><p><a href="https://www.instagram.com/yer_moda/" target="_blank" rel="noopener">@yer_moda</a></p></div></footer>
+<script>
+(function(){
+var TZ="Europe/Istanbul", data=null, failed=false;
+var UI={
+ tr:{eye:"Bugünün menüsü",more:"Tüm menü",loc:"tr-TR",
+     wait:"Bugünün tabakları birazdan burada.",wait2:"Mutfak hazırlanırken tüm menümüze göz atabilirsiniz.",
+     err:"Menü şu an yüklenemedi.",err2:"Biraz sonra yeniden deneyin."},
+ en:{eye:"Today's menu",more:"Full menu",loc:"en-GB",
+     wait:"Today's dishes will be here shortly.",wait2:"In the meantime, have a look at our full menu.",
+     err:"The menu couldn't load right now.",err2:"Please try again in a moment."}
+};
+function today(){
+ var p=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+ var o={};p.forEach(function(x){o[x.type]=x.value});return o.year+"-"+o.month+"-"+o.day;
+}
+function dayName(iso,L){
+ var d=new Date(iso+"T12:00:00+03:00");
+ var o={timeZone:TZ};
+ var w=new Intl.DateTimeFormat(UI[L].loc,{timeZone:TZ,weekday:"long"}).format(d);
+ var dm=new Intl.DateTimeFormat(UI[L].loc,{timeZone:TZ,day:"numeric",month:"long"}).format(d);
+ return w+", "+dm;
+}
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(L){
+ var u=UI[L], t=today(), h="";
+ document.documentElement.lang=L;
+ document.getElementById("eyebrow").textContent=u.eye;
+ document.getElementById("more").textContent=u.more;
+ document.getElementById("day").textContent=dayName(t,L);
+ if(data&&data.date===t){
+  data.groups.forEach(function(g){
+   h+='<ul class="grp">'+g.map(function(it){
+    var n=it[L]||it.tr, s=it["sub_"+L]||it.sub_tr;
+    return '<li class="dish">'+esc(n)+(s?'<span class="sub">'+esc(s)+'</span>':'')+'</li>';
+   }).join("")+'</ul>';
+  });
+  var note=data["note_"+L]||data.note_tr; if(note)h+='<p class="note">'+esc(note)+'</p>';
+ }else if(failed){
+  h='<div class="empty"><p>'+u.err+'</p><p>'+u.err2+'</p></div>';
+ }else if(data){
+  h='<div class="empty"><p>'+u.wait+'</p><p>'+u.wait2+'</p></div>';
+ }
+ document.getElementById("list").innerHTML=h;
+ document.getElementById("more").setAttribute("href","../"+(L==="en"?"#en":""));
+ ["tr","en"].forEach(function(x){document.getElementById("b-"+x).setAttribute("aria-pressed",x===L?"true":"false")});
+}
+function pick(){return (location.hash||"").toLowerCase()==="#en"?"en":"tr"}
+document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){
+ var L=b.getAttribute("data-l");
+ try{history.replaceState(null,"",L==="en"?"#en":location.pathname)}catch(e){}
+ render(L);
+})});
+window.addEventListener("hashchange",function(){render(pick())});
+render(pick());
+fetch("../bugun.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})
+ .then(function(j){data=j;render(pick())})
+ .catch(function(){failed=true;render(pick())});
+})();
+</script>
+</body>
+</html>

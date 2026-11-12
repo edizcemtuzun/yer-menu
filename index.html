@@ -97,6 +97,10 @@ footer a{text-decoration:none;border-bottom:1px solid currentColor}
 footer p{margin:0}
 @media (prefers-reduced-motion:reduce){.cover{transition:none}html{scroll-behavior:auto}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.today{display:flex;justify-content:center;background:var(--paper);border-bottom:1px solid #e7e3dc;padding:12px max(20px,env(safe-area-inset-right,0px)) 12px max(20px,env(safe-area-inset-left,0px))}
+.today a{text-decoration:none;font-weight:600;font-size:15px;color:var(--bordo);display:inline-flex;align-items:center;gap:8px}
+.today a i{font-style:italic;font-weight:400;color:var(--ink-soft)}
+.today a:focus-visible{outline:2px solid var(--bordo);outline-offset:3px}
 </style>
 </head>
 <body>
@@ -111,6 +115,7 @@ footer p{margin:0}
     <p class="where" id="where">Moda, Kadıköy</p>
   </div>
 </header>
+<div class="today" id="today" hidden><a href="bugun/" id="today-a"><span id="today-t">Bugünün menüsü</span> <i id="today-d"></i> →</a></div>
 <nav class="nav" aria-label="Bölümler"><div class="wrap"><div class="chips" id="chips"></div></div></nav>
 <main><div class="wrap" id="menu"></div></main>
 <footer>
@@ -313,5 +318,19 @@ render(pick());
 })();
 </script>
 
+<script>
+(function(){
+var TZ="Europe/Istanbul";
+function today(){var o={};new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return o.year+"-"+o.month+"-"+o.day}
+var ok=false;
+function upd(){if(!ok)return;var en=document.documentElement.lang==="en";
+ document.getElementById("today-t").textContent=en?"Today's menu":"Bugünün menüsü";
+ document.getElementById("today-d").textContent=new Intl.DateTimeFormat(en?"en-GB":"tr-TR",{timeZone:TZ,day:"numeric",month:"long"}).format(new Date());
+ document.getElementById("today-a").setAttribute("href","bugun/"+(en?"#en":""));}
+fetch("bugun.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+ if(j.date===today()){ok=true;document.getElementById("today").hidden=false;upd()}}).catch(function(){});
+new MutationObserver(upd).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+})();
+</script>
 </body>
 </html>
