@@ -73,6 +73,7 @@ main .wrap{padding-block:30px 44px}
 footer{background:var(--bordo);color:var(--aqua)}
 footer .wrap{padding-block:22px 26px;text-align:center;font-size:14px;display:grid;gap:4px}
 footer p{margin:0}
+footer .price{font-style:italic;margin-bottom:6px}
 footer a{text-decoration:none;border-bottom:1px solid currentColor}
 @media (prefers-reduced-motion:reduce){.cover{transition:none}}
 </style>
@@ -94,15 +95,15 @@ footer a{text-decoration:none;border-bottom:1px solid currentColor}
   </div>
 </header>
 <main><div class="wrap"><div id="list"></div><div class="more"><a id="more" href="../">Tüm menü</a></div><section class="past" id="past" hidden></section></div></main>
-<footer><div class="wrap"><p>Ferit Tek Sok. No:25A, Moda / Kadıköy</p><p><a href="https://www.instagram.com/yer_moda/" target="_blank" rel="noopener">@yer_moda</a></p></div></footer>
+<footer><div class="wrap"><p class="price" id="price-note">Güncel fiyatlar dükkândaki menüde.</p><p>Ferit Tek Sok. No:25A, Moda / Kadıköy</p><p><a href="https://www.instagram.com/yer_moda/" target="_blank" rel="noopener">@yer_moda</a></p></div></footer>
 <script>
 (function(){
 var TZ="Europe/Istanbul", data=null, failed=false;
 var UI={
- tr:{eye:"Bugünün menüsü",more:"Tüm menü",loc:"tr-TR",past:"Geçmiş günler",n:"tabak",
+ tr:{eye:"Bugünün menüsü",more:"Tüm menü",loc:"tr-TR",past:"Geçmiş günler",n:"tabak",price:"Güncel fiyatlar dükkândaki menüde.",
      wait:"Bugünün tabakları birazdan burada.",wait2:"Mutfak hazırlanırken tüm menümüze göz atabilirsiniz.",
      err:"Menü şu an yüklenemedi.",err2:"Biraz sonra yeniden deneyin."},
- en:{eye:"Today's menu",more:"Full menu",loc:"en-GB",past:"Previous days",n:"dishes",
+ en:{eye:"Today's menu",more:"Full menu",loc:"en-GB",past:"Previous days",n:"dishes",price:"Current prices are on the menu in the shop.",
      wait:"Today's dishes will be here shortly.",wait2:"In the meantime, have a look at our full menu.",
      err:"The menu couldn't load right now.",err2:"Please try again in a moment."}
 };
@@ -133,6 +134,7 @@ function render(L){
  document.documentElement.lang=L;
  document.getElementById("eyebrow").textContent=u.eye;
  document.getElementById("more").textContent=u.more;
+ document.getElementById("price-note").textContent=u.price;
  document.getElementById("day").textContent=dayName(t,L);
  var td=data&&data.days.filter(function(x){return x.date===t})[0];
  if(td) h=groupsHTML(td,L);
