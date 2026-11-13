@@ -1,6 +1,45 @@
 {
  "days": [
   {
+   "date": "2026-11-13",
+   "groups": [
+    [
+     {
+      "tr": "Bakliyatlı Yayla Çorbası",
+      "en": "Yayla Soup with Pulses"
+     }
+    ],
+    [
+     {
+      "tr": "Beğendili Köfte",
+      "en": "Köfte with Smoky Aubergine Purée",
+      "sub_tr": "Çoban Salata",
+      "sub_en": "Shepherd's Salad"
+     }
+    ],
+    [
+     {
+      "tr": "Zeytinyağlı Yaprak Sarma",
+      "en": "Vine Leaves in Olive Oil"
+     },
+     {
+      "tr": "Bademli Pancar Yoğurtlama",
+      "en": "Beetroot in Yoghurt with Almonds"
+     },
+     {
+      "tr": "Portakallı Kereviz",
+      "en": "Celeriac with Orange"
+     }
+    ],
+    [
+     {
+      "tr": "Yer Profiterol",
+      "en": "Yer Profiteroles"
+     }
+    ]
+   ]
+  },
+  {
    "date": "2026-11-12",
    "groups": [
     [
